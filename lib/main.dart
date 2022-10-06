@@ -3,11 +3,12 @@ import 'package:clean_stock_app_2/util/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'presentation/company_listings/company_listings_screen.dart';
+
 void main() {
   // await Hive.initFlutter();
   // hive_generator build_runner 실행 이후 설정
-  // Hive.registerAdapter(CompanyListingEntityAdapter());
-
+  Hive.registerAdapter(CompanyListingsEntityAdapter());
   runApp(const MyApp());
 }
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: darkColorScheme,
       ),
       themeMode: ThemeMode.system,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const CompanyListingsScreen(),
     );
   }
 }
