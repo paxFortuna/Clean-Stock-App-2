@@ -9,7 +9,8 @@ class StockDao {
   // 키값은 상수로 정의해서 사용하면 휴먼 에러 방지
   static const companyListings = 'companyListings';
 
-  final box = Hive.box('stock.db');
+  // openBox 사용할 때 box 지우지 않으면 버그 발생
+  // final box = Hive.box('stock.db');
 
   // cache 추가
   Future<void> insertCompanyListings(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clean_stock_app_2/presentation/company_listings/company_listings_action.dart';
 import 'package:clean_stock_app_2/presentation/company_listings/company_listings_state.dart';
 import 'package:flutter/material.dart';
 
@@ -21,16 +22,17 @@ class CompanyListingsViewModel with ChangeNotifier {
     _getCompanyListings();
   }
 
-  // void onAction(CompanyListingsAction action) {
-  //   action.when(refresh: () => _getCompanyListings(fetchFromRemote: true),
-  //       onSearchQueryChange: (query) {
-  //         _debounce?.cancel();
-  //         _debounce = Timer(const Duration(milliseconds: 500), (){
-  //           _getCompanyListings(query: query);
-  //         });
-  //       }
-  //   );
-  // }
+  void onAction(CompanyListingsAction action) {
+    // when: sealedclass action 기능 버그 방지
+    action.when(refresh: () => _getCompanyListings(fetchFromRemote: true),
+        onSearchQueryChange: (query) {
+          _debounce?.cancel();
+          _debounce = Timer(const Duration(milliseconds: 500), (){
+            _getCompanyListings(query: query);
+          });
+        }
+    );
+  }
 
   // ui에서 veiwModel이 호출되면 아래 메서드를 호출하여 데이터 읽어옴.
   Future _getCompanyListings({
