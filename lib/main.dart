@@ -17,27 +17,28 @@ void main() async {
   // hive_generator build_runner 실행 이후 설정
   Hive.registerAdapter(CompanyListingsEntityAdapter());
 
-  // GetIt으로 상태를 로케이터로 관리
   final repository = StockRepositoryImpl(
     StockApi(),
     StockDao(),
   );
 
+  // GetIt으로 서비스 로케이터 생성하여 관리하면, repository를 여기저기서 사용할 수 있다.
   GetIt.instance.registerSingleton<StockRepository>(repository);
 
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(
-      create: (_) => CompanyListingsViewModel(
-        repository,
-        // StockRepositoryImpl(
-        //   StockApi(),
-        //   StockDao(),
-        // ),
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (_) => CompanyListingsViewModel(
+          repository,
+          // StockRepositoryImpl(
+          //   StockApi(),
+          //   StockDao(),
+          // ),
+        ),
       ),
-    ),
-  ], child: const MyApp()),);
+    ], child: const MyApp()),
+  );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

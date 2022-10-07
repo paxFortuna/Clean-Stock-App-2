@@ -4,16 +4,18 @@ import 'package:clean_stock_app_2/data/source/local/stock_dao.dart';
 import 'package:clean_stock_app_2/data/source/remote/stock_api.dart';
 import 'package:clean_stock_app_2/domain/model/company_info.dart';
 import 'package:clean_stock_app_2/domain/model/company_listings.dart';
+import 'package:clean_stock_app_2/domain/model/intraday_info.dart';
 
 import 'package:clean_stock_app_2/util/result.dart';
 
 import '../../domain/repository/stock_repository.dart';
+import '../csv/intraday_info_parser.dart';
 
 class StockRepositoryImpl implements StockRepository {
   final StockApi _api;
   final StockDao _dao;
   final _companyListingsParser = CompanyListingsParser();
-  //final _intradayInfoParser = IntradayInfoParser();
+  final _intradayInfoParser = IntradayInfoParser();
 
   StockRepositoryImpl(this._api, this._dao);
 
@@ -67,6 +69,19 @@ class StockRepositoryImpl implements StockRepository {
     } catch (e) {
       // return Result.error(Exception('회사 정보 로드 실패!! : ${e.toString()}'));
       return Result.error(Exception('회사 정보 로드 실패!! : $e'));
+    }
+  }
+
+  // intraday_info 가져오기 위해 _parser 만들어야 한다
+  @override
+  Future<Result<List<IntradayInfo>>> getIntradayInfo(String symbol) async{
+    try{
+      final response = await _api.getIntradayInfo(symbol: symbol);
+      final results = await _intradayInfoParser.parse(response.body);
+      return Result.success(results);
+
+    }catch(e){
+      return Result.error(Exception('intraday 정보 로드 실패!!! : $e'));
     }
   }
 }

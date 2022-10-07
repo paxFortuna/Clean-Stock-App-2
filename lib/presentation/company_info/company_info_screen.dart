@@ -20,7 +20,9 @@ class CompanyInfoScreen extends StatelessWidget {
             if (state.isLoading)
               const Center(child: CircularProgressIndicator()),
             if (state.isLoading == false && state.errorMessage == null)
-              SingleChildScrollView(child: _buildBody(context, state)),
+              SingleChildScrollView(
+                child: _buildBody(context, state),
+              ),
           ],
         ),
       ),
