@@ -1,4 +1,4 @@
-import 'package:clean_stock_app_2/data/source/local/company_lisings_entity.dart';
+import 'package:clean_stock_app_2/data/source/local/company_listings_entity.dart';
 import 'package:clean_stock_app_2/util/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -1,7 +1,9 @@
-import 'package:clean_stock_app_2/data/source/local/company_lisings_entity.dart';
+import 'package:clean_stock_app_2/data/source/local/company_listings_entity.dart';
 import 'package:hive/hive.dart';
 
-// local db(cache)에 crud 기능
+// entity 하이브 객체를 통해 local db(cache)에 crud dao기능 작성
+// 시나리오: remote _api로 csv 파일을 불러오면,
+// local entity 통해 dao에 캐시 저장하여 사용
 
 class StockDao {
   // 키값은 상수로 정의해서 사용하면 휴먼 에러 방지
@@ -9,7 +11,7 @@ class StockDao {
 
   final box = Hive.box('stock.db');
 
-  // 추가
+  // cache 추가
   Future<void> insertCompanyListings(
       List<CompanyListingsEntity> companyListingsEntities) async {
     // await box.put(StockDao.companyListings, companyListingsEntities);
