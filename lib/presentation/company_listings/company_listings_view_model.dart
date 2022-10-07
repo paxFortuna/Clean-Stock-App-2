@@ -26,6 +26,7 @@ class CompanyListingsViewModel with ChangeNotifier {
     // when: sealedclass action 기능 버그 방지
     action.when(refresh: () => _getCompanyListings(fetchFromRemote: true),
         onSearchQueryChange: (query) {
+          // TextField가 널이면 디바운스 실행 안함
           _debounce?.cancel();
           _debounce = Timer(const Duration(milliseconds: 500), (){
             _getCompanyListings(query: query);
@@ -54,8 +55,8 @@ class CompanyListingsViewModel with ChangeNotifier {
         );
       },
       error: (e) {
-        //todo: 에러처리
-        print('리모트 에러: $e');
+        Exception('리모트 에러!! : $e');
+        // print('리모트 에러: $e');
       },
     );
 

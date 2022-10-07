@@ -2,6 +2,7 @@ import 'package:clean_stock_app_2/data/csv/company_listings_parser.dart';
 import 'package:clean_stock_app_2/data/mapper/company_mapper.dart';
 import 'package:clean_stock_app_2/data/source/local/stock_dao.dart';
 import 'package:clean_stock_app_2/data/source/remote/stock_api.dart';
+import 'package:clean_stock_app_2/domain/model/company_info.dart';
 import 'package:clean_stock_app_2/domain/model/company_listings.dart';
 
 import 'package:clean_stock_app_2/util/result.dart';
@@ -54,6 +55,18 @@ class StockRepositoryImpl implements StockRepository {
 
     } catch (e) {
       return Result.error(Exception('데이터 로드 실패'));
+    }
+  }
+
+  @override
+  Future<Result<CompanyInfo>> getCompanyInfo(String symbol) async {
+    try {
+      final dto = await _api.getCompanyInfo(symbol: symbol);
+      // dto와 CompanyInfo 변환은 Mapper에 추가해야 함
+      return Result.success(dto.toCompanyInfo());
+    } catch (e) {
+      // return Result.error(Exception('회사 정보 로드 실패!! : ${e.toString()}'));
+      return Result.error(Exception('회사 정보 로드 실패!! : $e'));
     }
   }
 }
