@@ -5,8 +5,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'presentation/company_listings/company_listings_screen.dart';
 
-void main() {
-  // await Hive.initFlutter();
+void main() async {
+  await Hive.initFlutter();
   // hive_generator build_runner 실행 이후 설정
   Hive.registerAdapter(CompanyListingsEntityAdapter());
   runApp(const MyApp());
