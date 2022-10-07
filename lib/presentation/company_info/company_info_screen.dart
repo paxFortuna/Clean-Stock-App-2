@@ -1,5 +1,6 @@
 import 'package:clean_stock_app_2/presentation/company_info/company_info_state.dart';
 import 'package:clean_stock_app_2/presentation/company_info/company_info_view_model.dart';
+import 'package:clean_stock_app_2/presentation/company_info/components/stock_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +36,7 @@ class CompanyInfoScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // CompanyInfoState({ CompanyInfo? companyInfo, ...})
           Text(
             state.companyInfo!.name,
             style: const TextStyle(
@@ -75,15 +77,15 @@ class CompanyInfoScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          // if (state.stockInfos.isNotEmpty)
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: StockChart(
-          //       infos: state.stockInfos,
-          //       graphColor: Theme.of(context).colorScheme.primary,
-          //       textColor: Theme.of(context).colorScheme.onSurface,
-          //     ),
-          //   ),
+          if (state.stockInfos.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: StockChart(
+                infos: state.stockInfos,
+                graphColor: Theme.of(context).colorScheme.primary,
+                textColor: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
         ],
       ),
     );

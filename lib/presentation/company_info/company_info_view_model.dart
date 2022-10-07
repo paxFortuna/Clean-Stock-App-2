@@ -23,22 +23,22 @@ class CompanyInfoViewModel with ChangeNotifier {
     //실재 데이터 가져오는 기능 when은 freezed 내장함수
     final result = await _repository.getCompanyInfo(symbol);
     result.when(
-        success: (info) {
-          _state = state.copyWith(
-            companyInfo: info,
-            isLoading: false,
-            errorMessage: null,
-          );
-        },
-        error: (e) {
-          _state = state.copyWith(
-            companyInfo: null,
-            isLoading: false,
-            errorMessage: e.toString(),
-          );
-        });
+      success: (info) {
+        _state = state.copyWith(
+          companyInfo: info,
+          isLoading: false,
+          errorMessage: null,
+        );
+      },
+      error: (e) {
+        _state = state.copyWith(
+          companyInfo: null,
+          isLoading: false,
+          errorMessage: e.toString(),
+        );
+      },
+    );
 
-    // _state = state.copyWith(isLoading: false);
     notifyListeners();
 
     final intradayInfo = await _repository.getIntradayInfo(symbol);

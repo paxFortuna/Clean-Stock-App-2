@@ -30,10 +30,6 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => CompanyListingsViewModel(
           repository,
-          // StockRepositoryImpl(
-          //   StockApi(),
-          //   StockDao(),
-          // ),
         ),
       ),
     ], child: const MyApp()),
