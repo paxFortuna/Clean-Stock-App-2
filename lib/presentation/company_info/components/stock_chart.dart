@@ -112,7 +112,7 @@ class ChartPainter extends CustomPainter {
       lastX = (x1 + x2) / 2.0;
       strokePath.quadraticBezierTo(x1, y1, lastX, (y1 + y2) / 2.0);
     }
-    // graph 그라데이션
+    // graph 그라데이션 채우기
     final fillPath = Path.from(strokePath)
       ..lineTo(lastX, size.height - spacing)
       ..lineTo(spacing, size.height - spacing)
